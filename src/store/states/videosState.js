@@ -120,6 +120,25 @@ const videosState = {
                     window.alert(err);
                 });
         },
+        async deleteVideo(id){
+            this.state.isLoading = true;
+            await axios
+                .create({
+                    baseURL: constants.baseUrl,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + this.state.login.token,
+                    },
+                })
+                .delete("videos/" + id)
+                .catch((err) => {
+                    window.alert(err);
+                })
+                .finally(() => {
+                    this.state.isLoading = false;
+                });
+        },
+
         async httpGetSearch(state, search) {
             this.state.isLoading = true;
             await axios

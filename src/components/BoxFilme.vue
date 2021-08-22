@@ -24,7 +24,7 @@
           </a>
         </span>
         <span>
-          <a>
+          <a @click="confirmaDeleta()">
             <i class="fas fa-trash-alt" />
           </a>
         </span>
@@ -60,6 +60,11 @@ export default {
     setVideo() {
       this.$store.dispatch("videos/abrirModal", this.video);
     },
+    confirmaDeleta(){
+      if(window.confirm("Tem certeza que deseja excluir este item? ")){
+        this.$store.dispatch("videos/deleteVideo", this.id);
+      }
+    }
   },
 };
 </script>
