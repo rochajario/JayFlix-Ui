@@ -4,7 +4,6 @@
       <cabecalho />
     </div>
     <router-view />
-    <cadastro-video v-if="this.getModalCadastroVideo.visivel" />
     <video-modal v-if="this.getModalVideo.visivel" />
     <info-modal v-if="this.getModalInfo" />
     <login-modal v-if="this.getModalLogin.visivel" />
@@ -18,7 +17,6 @@ import Loader from "./components/Loader.vue";
 import LoginModal from "./components/LoginModal.vue";
 import Cabecalho from "./components/Cabecalho.vue";
 import VideoModal from "./components/VideoModal.vue";
-import CadastroVideoModal from "./components/CadastroVideoModal.vue";
 import InfoModal from "./components/InfoModal.vue";
 
 import { mapGetters } from "vuex";
@@ -28,7 +26,6 @@ export default {
   components: {
     loader: Loader,
     "login-modal": LoginModal,
-    "cadastro-video": CadastroVideoModal,
     "video-modal": VideoModal,
     "info-modal": InfoModal,
     cabecalho: Cabecalho,
@@ -42,7 +39,6 @@ export default {
       getToken: "login/getToken",
       getModalLogin: "login/getModal",
       getModalVideo: "videos/getModal",
-      getModalCadastroVideo: "cadastroVideo/getModal",
       getModalInfo: "isInfoModalVisivel",
     })
   },

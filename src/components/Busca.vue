@@ -18,26 +18,33 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Busca",
+  data() {
+    return {
+      busca: "",
+    };
+  },
   computed: {
     ...mapGetters({
       getToken: "login/getToken",
-    }),
+    })
   },
   methods: {
-    realizaBusca(search) {
+    async realizaBusca(search) {
       if (!this.getToken) {
-        if(search ==""){
+        if (search == "") {
           return;
         }
         let logarParaBuscar = {
           titulo: "Login Necessário",
-          subtitulo: "Faça login para realizar buscas que retornem todos os vídeos disponíveis.",
-          descricao:"",
+          subtitulo:
+            "Faça login para realizar buscas que retornem todos os vídeos disponíveis.",
+          descricao: "",
         };
         this.$store.dispatch("login/abrirModal", logarParaBuscar);
         return;
       }
-      this.$store.dispatch("videos/httpGetSearch",search);
+      await this.$store.dispatch("videos/httpGetSearch", search);
+      this.$store.commit("videos/setAreaDeBusca",true);
     },
   },
 };

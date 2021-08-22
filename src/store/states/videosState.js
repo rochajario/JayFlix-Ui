@@ -9,6 +9,7 @@ Vue.use(Vuex);
 const videosState = {
     namespaced: true,
     state: {
+        areaBuscaVisivel:false,
         videos: [],
         categorias: [],
         modalVideo: {
@@ -18,6 +19,9 @@ const videosState = {
         }
     },
     getters: {
+        getAreaBusca(state){
+            return state.areaBuscaVisivel;
+        },
         getVideos(state) {
             return state.videos;
         },
@@ -29,6 +33,9 @@ const videosState = {
         }
     },
     mutations: {
+        setAreaDeBusca(state,value){
+            state.areaBuscaVisivel = value;
+        },
         setVideos(state, value) {
             state.videos = value;
         },
@@ -120,23 +127,6 @@ const videosState = {
                     window.alert(err);
                 });
         },
-        async deleteVideo(id){
-            this.state.isLoading = true;
-            await axios
-                .create({
-                    baseURL: constants.baseUrl,
-                    headers: {
-                        "Authorization": "Bearer " + this.state.login.token,
-                    },
-                })
-                .delete("videos/" + id)
-                .catch((err) => {
-                    window.alert(err);
-                })
-                .finally(() => {
-                    this.state.isLoading = false;
-                });
-        },
 
         async httpGetSearch(state, search) {
             this.state.isLoading = true;
@@ -152,7 +142,7 @@ const videosState = {
                 .then(res => res.data)
                 .then(videos => state.commit("setVideos", videos))
                 .catch((err) => {
-                    window.alert(err);
+                    console.log(err);
                 })
                 .finally(() => {
                     this.state.isLoading = false;

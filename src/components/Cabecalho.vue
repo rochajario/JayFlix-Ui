@@ -5,7 +5,6 @@
       <div class="controles">
         <busca v-if="this.menu.visivel" />
         <btn-click v-if="this.menu.visivel" :icone="this.icone_info" @isClicked="this.btnInfoAction"/>
-        <btn-click v-if="this.menu.visivel" :icone="this.icone_add" @isClicked="this.abrirModalCadastroVideo"/>
         <btn-click :icone="this.menu.icone" @isClicked="this.btnMenuAction"/>
       </div>
     </nav>

@@ -1,19 +1,24 @@
 <template>
-  <div class="container">
-    <div v-for="categoria in this.getCategorias" :key="categoria.id">
-      <carrosel v-bind:titulo="categoria.titulo" v-bind:id="categoria.id"/>
+  <div>
+    <area-de-busca/>
+    <div class="container">
+      <div v-for="categoria in this.getCategorias" :key="categoria.id">
+        <carrosel v-bind:titulo="categoria.titulo" v-bind:id="categoria.id" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import AreaDeBusca from "../components/AreaDeBusca.vue"
 import Carrossel from "../components/shared/Carrossel.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {
+    "area-de-busca":AreaDeBusca,
     carrosel: Carrossel,
   },
   async mounted() {
@@ -22,7 +27,6 @@ export default {
   watch: {
     getToken: {
       async handler(value) {
-        console.log("Bearer " + value);
         await this.obterTodosVideos(value);
         console.log("Videos Atualizados");
       },
@@ -31,7 +35,7 @@ export default {
   computed: {
     ...mapGetters({
       getCategorias: "videos/getCategorias",
-      getToken: "login/getToken",
+      getToken: "login/getToken"
     }),
   },
   methods: {

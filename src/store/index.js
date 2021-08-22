@@ -5,15 +5,13 @@ import Vuex from 'vuex';
 //States Customizados
 import loginState from './states/loginState';
 import videosState from './states/videosState';
-import cadastroVideoState from './states/cadastroVideoState';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     login: loginState,
-    videos: videosState,
-    cadastroVideo: cadastroVideoState
+    videos: videosState
   },
   state: {
     isLoading: false,
