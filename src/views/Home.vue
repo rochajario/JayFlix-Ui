@@ -1,18 +1,20 @@
 <template>
   <div class="container">
-    <carrosel v-for="categoria in this.getCategorias" :key="categoria.id" v-bind:titulo="categoria.titulo"/>
+    <div v-for="categoria in this.getCategorias" :key="categoria.id">
+      <carrosel v-bind:titulo="categoria.titulo" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Carrossel from "../components/shared/Carrossel.vue"
+import Carrossel from "../components/shared/Carrossel.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {
-    "carrosel":Carrossel
+    carrosel: Carrossel,
   },
   async mounted() {
     await this.atualizarVideos();
@@ -28,7 +30,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getCategorias:"videos/getCategorias",
+      getCategorias: "videos/getCategorias",
       getToken: "login/getToken",
     }),
   },
@@ -36,10 +38,10 @@ export default {
     async atualizarVideos() {
       await this.$store.dispatch("videos/httpGetVideos");
     },
-    async obterTodosVideos(token){
-      await this.$store.dispatch("videos/httpGetVideosAll",token);
-      await this.$store.dispatch("videos/httpGetCategorias",token);
-    }
+    async obterTodosVideos(token) {
+      await this.$store.dispatch("videos/httpGetVideosAll", token);
+      await this.$store.dispatch("videos/httpGetCategorias", token);
+    },
   },
 };
 </script>
