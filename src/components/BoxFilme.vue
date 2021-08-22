@@ -54,6 +54,9 @@ export default {
     };
   },
   computed: {
+    videoId(){
+      return this.id;
+    },
     ...mapActions(["videos/abrirModal"]),
   },
   methods: {
@@ -62,7 +65,7 @@ export default {
     },
     confirmaDeleta(){
       if(window.confirm("Tem certeza que deseja excluir este item? ")){
-        this.$store.dispatch("videos/deleteVideo", this.id);
+        this.$store.dispatch("videos/deleteVideo", this.videoId);
       }
     }
   },

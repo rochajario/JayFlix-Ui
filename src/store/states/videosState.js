@@ -126,7 +126,6 @@ const videosState = {
                 .create({
                     baseURL: constants.baseUrl,
                     headers: {
-                        "Content-Type": "application/json",
                         "Authorization": "Bearer " + this.state.login.token,
                     },
                 })
