@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-for="categoria in this.getCategorias" :key="categoria.id">
-      <carrosel v-bind:titulo="categoria.titulo" />
+      <carrosel v-bind:titulo="categoria.titulo" v-bind:id="categoria.id"/>
     </div>
   </div>
 </template>

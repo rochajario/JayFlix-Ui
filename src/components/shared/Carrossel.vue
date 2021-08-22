@@ -4,32 +4,19 @@
       <span>
         <strong>{{ this.titulo }}</strong>
       </span>
-      <div class="controles">
-        <span>
-          <a>
-            <i class="fas fa-edit" />
-          </a>
-        </span>
-        <span>
-          <a>
-            <i class="fas fa-trash-alt" />
-          </a>
-        </span>
-      </div>
     </div>
 
     <carousel-3d
-      :disable3d="true"
       :width="248"
       :height="348"
       :perspective="0"
-      :display="5"
-      :space="300"
+      :display="3"
+      :space="420"
       :clickable="false"
       :controls-visible="true"
-      :count="this.getVideos.length"
+      :count="this.videos.length"
     >
-      <slide v-for="(filme, i) in this.getVideos" :index="i" :key="i">
+      <slide v-for="(filme, i) in this.videos" :index="i" :key="i">
         <box-filme
           v-bind:id="filme.id"
           v-bind:titulo="filme.titulo"
@@ -45,7 +32,9 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+import constants from "../../store/Constants";
+import axios from "axios";
+import { mapGetters, mapMutations } from "vuex";
 import { Carousel3d, Slide } from "vue-carousel-3d";
 import BoxFilme from "../BoxFilme.vue";
 
@@ -55,6 +44,12 @@ export default {
       type: String,
       required: true,
     },
+    id: Number,
+  },
+  data() {
+    return {
+      videos: [],
+    };
   },
   components: {
     "box-filme": BoxFilme,
@@ -63,13 +58,35 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getVideos: "videos/getVideos",
+      getToken: "login/getToken",
+    }),
+    ...mapMutations({
+      setLoader: "setLoader",
     }),
   },
   methods: {
     obterVideos() {
       return this.getVideos;
     },
+    async httpGetVideosAll() {
+      await axios
+        .create({
+          baseURL: constants.baseUrl,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.getToken,
+          },
+        })
+        .get("categorias/" + this.id + "/videos")
+        .then((promise) => promise.data)
+        .then((videos) => (this.videos = videos))
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.httpGetVideosAll();
   },
 };
 </script>
@@ -84,16 +101,9 @@ export default {
   margin-left: 25px;
   margin-right: 15px;
 }
-.titulo span{
+.titulo span {
   color: white;
   text-shadow: 1.5px 2px 3.5px rgba(0, 0, 0, 0.589);
-}
-
-.controles {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
 }
 .carousel-3d-container {
   margin-top: 0;

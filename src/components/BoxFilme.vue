@@ -17,18 +17,6 @@
       <span v-bind:style="{ color: this.categoria.cor }">
         <strong>{{ this.categoria.titulo }}</strong>
       </span>
-      <div class="controles">
-        <span>
-          <a>
-            <i class="fas fa-edit" />
-          </a>
-        </span>
-        <span>
-          <a @click="confirmaDeleta()">
-            <i class="fas fa-trash-alt" />
-          </a>
-        </span>
-      </div>
     </div>
   </div>
 </template>
