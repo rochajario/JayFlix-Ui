@@ -66,7 +66,7 @@ const loginState = {
       //Execução de Consulta ao Firebase
       firebase
         .auth()
-        .signInWithRedirect(provider)
+        .signInWithPopup(provider)
         .then(() => {
           firebase
             .auth()
